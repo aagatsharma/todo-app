@@ -54,14 +54,14 @@ export default function PerformTask() {
               >
                 <h1 className="text-3xl">{task.newtask}</h1>
                 <div className="flex gap-4">
-                  <button
+                  {/* <button
                     className="btn"
                     onClick={() => {
                       editTask(task.id);
                     }}
                   >
                     Edit
-                  </button>
+                  </button> */}
 
                   <button
                     className="btn"
