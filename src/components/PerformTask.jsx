@@ -26,6 +26,9 @@ export default function PerformTask() {
     setTodo(completedtask);
   }
 
+  function editTask(id) {
+    setTodo(todo.map);
+  }
   return (
     <>
       <div className="pt-6 flex justify-center ">
@@ -42,37 +45,39 @@ export default function PerformTask() {
       </div>
       <div className="w-[900px] m-auto mt-10 ">
         {todo.map((task) => {
-          <div className="flex justify-center items-center mb-8">
-            <div
-              className={`flex justify-between items-center ${
-                task.complete ? "bg-green-200" : "bg-sky-200"
-              } w-full py-3 px-5 rounded-lg`}
-            >
-              <h1 className="text-3xl">{task.newtask}</h1>
-              <div className="flex gap-4">
-                <button
-                  className="btn"
-                  onClick={() => {
-                    editTask(task.id);
-                  }}
-                >
-                  Edit
-                </button>
+          return (
+            <div className="flex justify-center items-center mb-8">
+              <div
+                className={`flex justify-between items-center ${
+                  task.complete ? "bg-green-200" : "bg-sky-200"
+                } w-full py-3 px-5 rounded-lg`}
+              >
+                <h1 className="text-3xl">{task.newtask}</h1>
+                <div className="flex gap-4">
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      editTask(task.id);
+                    }}
+                  >
+                    Edit
+                  </button>
 
-                <button
-                  className="btn"
-                  onClick={() => {
-                    completeTask(task.id);
-                  }}
-                >
-                  {task.complete ? "Not Completed" : "Completed"}
-                </button>
-                <button className="btn" onClick={() => deleteTask(task.id)}>
-                  Delete
-                </button>
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      completeTask(task.id);
+                    }}
+                  >
+                    {task.complete ? "Not Completed" : "Completed"}
+                  </button>
+                  <button className="btn" onClick={() => deleteTask(task.id)}>
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
-          </div>;
+          );
         })}
       </div>
     </>
