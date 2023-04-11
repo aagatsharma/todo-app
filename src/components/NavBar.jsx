@@ -1,7 +1,29 @@
-function NavBar() {
+function NavBar({ login, setlogin }) {
+  const showlogin = () => {
+    setlogin(!login);
+  };
+
+  function setHome() {
+    setlogin();
+  }
+
   return (
-    <div className="bg-gray-600 py-4 text-center">
-      <h1 className="text-white text-6xl">TODO APP</h1>
+    <div className="flex items-center justify-between bg-blue-400 p-5 text-xl border-b-[1px]">
+      <div className="font-semibold text-3xl cursor-pointer" onClick={setHome}>
+        TODO APP
+      </div>
+
+      <div>Hello, Guest</div>
+
+      {login ? (
+        <button className="btn" onClick={setHome}>
+          Home
+        </button>
+      ) : (
+        <button className="btn" onClick={showlogin}>
+          Login
+        </button>
+      )}
     </div>
   );
 }

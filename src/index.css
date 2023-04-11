@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+  @apply rounded-lg bg-rose-300 p-3;
+}
+
+.input {
+  @apply border-[2px] rounded-lg text-xl outline-none focus:border-sky-500 px-4 py-3;
+}
