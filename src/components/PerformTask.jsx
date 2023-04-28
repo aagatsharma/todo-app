@@ -1,14 +1,19 @@
 import { useState } from "react";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { TiTick, TiEdit } from "react-icons/ti";
+import { RxCross2 } from "react-icons/rx";
 
 export default function PerformTask() {
   const [task, setTask] = useState("");
+  const [editedTask, setEditedTask] = useState("");
   const [todo, setTodo] = useState([]);
 
-  function displaytext() {
+  function addText() {
     const newtodo = {
       id: todo.length === 0 ? 1 : todo[todo.length - 1].id + 1,
       newtask: task,
       complete: false,
+      edit: false,
     };
     setTodo(newtodo.newtask === "" ? todo : [...todo, newtodo]);
     setTask("");
@@ -16,6 +21,7 @@ export default function PerformTask() {
   function storeText(e) {
     setTask(e.target.value);
   }
+
   function deleteTask(id) {
     setTodo(todo.filter((taskName) => taskName.id !== id));
   }
@@ -27,8 +33,17 @@ export default function PerformTask() {
   }
 
   function editTask(id) {
-    setTodo(todo.map);
+    const editedtask = todo.map((task) =>
+      id === task.id ? { ...task, edit: !task.edit } : task
+    );
+    setTodo(editedtask);
+    console.log(editedtask);
   }
+
+  function storeEditedTask(e) {
+    setEditedTask(e.target.value);
+  }
+
   return (
     <>
       <div className="pt-6 flex justify-center ">
@@ -39,7 +54,7 @@ export default function PerformTask() {
           value={task}
           placeholder="Enter your task..."
         />
-        <button className="ml-4 btn" onClick={displaytext}>
+        <button className="ml-4 btn" onClick={addText}>
           Add Task
         </button>
       </div>
@@ -52,27 +67,41 @@ export default function PerformTask() {
                   task.complete ? "bg-green-200" : "bg-sky-200"
                 } w-full py-3 px-5 rounded-lg`}
               >
-                <h1 className="text-3xl">{task.newtask}</h1>
+                {task.edit ? (
+                  <div className="flex gap-3">
+                    <input
+                      className="input"
+                      defaultValue={task.newtask}
+                      onChange={storeEditedTask}
+                    />
+                    <button className="btn" onClick={addText}>
+                      OK
+                    </button>
+                  </div>
+                ) : (
+                  <h1 className={`text-3xl ${task.complete && "line-through"}`}>
+                    {task.newtask}
+                  </h1>
+                )}
                 <div className="flex gap-4">
-                  {/* <button
-                    className="btn"
-                    onClick={() => {
-                      editTask(task.id);
-                    }}
-                  >
-                    Edit
-                  </button> */}
-
+                  {/* Task Update */}
                   <button
                     className="btn"
                     onClick={() => {
                       completeTask(task.id);
                     }}
                   >
-                    {task.complete ? "Not Completed" : "Completed"}
+                    {task.complete ? <RxCross2 /> : <TiTick />}
                   </button>
+
+                  {/* Edit task */}
+                  <button className="btn" onClick={() => editTask(task.id)}>
+                    <TiEdit />
+                  </button>
+
+                  {/* Delete Task */}
                   <button className="btn" onClick={() => deleteTask(task.id)}>
-                    Delete
+                    <RiDeleteBin6Line />
                   </button>
                 </div>
               </div>
