@@ -18,6 +18,7 @@ export default function PerformTask() {
     setTodo(newtodo.newtask === "" ? todo : [...todo, newtodo]);
     setTask("");
   }
+
   function storeText(e) {
     setTask(e.target.value);
   }
@@ -27,22 +28,35 @@ export default function PerformTask() {
   }
   function completeTask(id) {
     const completedtask = todo.map((task) =>
-      id === task.id ? { ...task, complete: !task.complete } : task
+      id === task.id ? { ...task, complete: !task.complete } : task,
     );
     setTodo(completedtask);
   }
 
   function editTask(id) {
+    console.log(todo);
     const editedtask = todo.map((task) =>
-      id === task.id ? { ...task, edit: !task.edit } : task
+      id === task.id ? { ...task, edit: !task.edit } : task,
     );
+
     setTodo(editedtask);
-    console.log(editedtask);
+
+    // console.log(editedtask);
   }
 
   function storeEditedTask(e) {
     setEditedTask(e.target.value);
   }
+
+  const changeTodo = (id) => {
+    const editedtask = todo.map((task) =>
+      id === task.id
+        ? { ...task, newtask: editedTask, edit: !task.edit }
+        : task,
+    );
+
+    setTodo(editedtask);
+  };
 
   return (
     <>
@@ -74,7 +88,7 @@ export default function PerformTask() {
                       defaultValue={task.newtask}
                       onChange={storeEditedTask}
                     />
-                    <button className="btn" onClick={addText}>
+                    <button className="btn" onClick={() => changeTodo(task.id)}>
                       OK
                     </button>
                   </div>
@@ -83,6 +97,7 @@ export default function PerformTask() {
                     {task.newtask}
                   </h1>
                 )}
+
                 <div className="flex gap-4">
                   {/* Task Update */}
                   <button
